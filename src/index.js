@@ -13,12 +13,17 @@ const { publishMessage } = require('./publisher')
 
 router.post('/publish', async(req, res)=>{
     console.log(req.body)
-    let { payload } = req.body;
+    let { image_url = '', image_hash = '' } = req.body;
+
+    const payload = {
+        image_hash,
+        image_url
+    }
 
     await publishMessage(payload);
 
     res.status(200).send({
-        "message-sent":true
+        "message-published" : true
     })
   })
 
