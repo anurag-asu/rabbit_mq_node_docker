@@ -6,6 +6,10 @@
 
 Express app listens on the port 3000 and rabbitmq server runs on the posr 5673
 
-To run Consumer Client, run:
+Steps to setup and run Consumer Client:
 
-g++ -std=c++11 test.cpp -L/usr/local/ssl/lib -lamqpcpp -lpthread -ldl -lSimpleAmqpClient -lssl -lcrypto -lSimpleAmqpClient -lboost_chrono -lboost_system -lrabbitmq -lrt -lssl
+- Install LibSSL Dev -> sudo apt-get install libssl-dev
+- Run ldconfig to make sure that changes are reflected correctly.
+- Commnad to execute the cpp ->
+g++ -std=c++11 consumer_client.cpp -L/usr/local/ssl/lib -lamqpcpp -lpthread -ldl -lSimpleAmqpClient -lssl -lcrypto -lSimpleAmqpClient -lboost_chrono -lboost_system -lrabbitmq -lrt -lssl
+
