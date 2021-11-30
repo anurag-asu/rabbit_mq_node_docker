@@ -10,6 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "amqplib": "^0.8.0",
-    "express": "^4.17.1"
+    "axios": "^0.24.0",
+    "express": "^4.17.1",
+    "form-data": "^4.0.0",
+    "multer": "^1.4.3",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
   }
 }
