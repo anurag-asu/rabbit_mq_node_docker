@@ -29,22 +29,42 @@ router.post('/publish', async(req, res)=>{
 
     res.status(200).send({
       "message-published" : true
-  })
+    })
 })
 
-router.post('/pinata', upload.single('file'), async (req, res) => {
-  
-  const pinata_data = await get_ipfs_hash(req.file);
-  
-  if(pinata_data){
-    res.status(200).send({
-      pinata_data
-    });
-  }  else {
+router.post('/mint', upload.single('file'), async (req, res) => {
+
+  const body = req.body
+  const pinata_data = await get_ipfs_hash(body);
+
+  if(!pinata_data) {
     res.status(500).send({
       'error': "oops! something went wrong"
     });
+    return
   }
+
+  if(pinata_data.isDuplicate) {
+    res.status(500).send({
+      'error': "This product is already minted."
+    });
+    return
+  }
+
+  const payload = {
+    ipfsHash: pinata_data.IpfsHash,
+    firstName: body.firstname,
+    lastName: body.lastName,
+    productName: body.productname,
+    about: body.about
+  }
+
+  await publishMessage(payload);
+
+  res.status(200).send({
+    "data" : 'message published to rabbitmq successfully'
+  })
+  
 })
 
 app.use("/", router);

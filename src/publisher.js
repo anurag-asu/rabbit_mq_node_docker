@@ -15,7 +15,7 @@ const publishMessage = async (data = {}) => {
         await channel.assertQueue(queue, {durable: true});
         await channel.bindQueue(queue, exchange, routingKey);
 
-        await channel.publish(exchange, routingKey, Buffer.from(JSON.stringify(data)));
+        channel.publish(exchange, routingKey, Buffer.from(JSON.stringify(data)));
 
         console.log('Message published');
 

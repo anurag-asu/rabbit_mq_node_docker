@@ -5,11 +5,13 @@ const formData = require('form-data')
 const { Readable } = require('stream');
 
 
-const get_ipfs_hash = async (file) => {
+const get_ipfs_hash = async (body) => {
     try {
 
-        const stream = Readable.from(file.buffer)
-        stream.path = file.originalname
+        console.log(body)
+        const imgBuffer = Buffer.from(body.image, 'base64')
+        const stream = Readable.from(imgBuffer)
+        stream.path = body.productname
 
         let data = new formData()
         data.append('file', stream);
