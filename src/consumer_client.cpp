@@ -44,7 +44,6 @@ class CallBackTimer {
   }
 
   void start(int interval, std::function<void(void)> func) {
-    cout << interval;
     if (_execute.load(std::memory_order_acquire)) {
       stop();
     };
